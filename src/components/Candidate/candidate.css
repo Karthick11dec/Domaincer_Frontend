@@ -1,0 +1,41 @@
+.cardclass{
+    width: 80%;
+}
+
+.padd{
+    padding: 10px 10px 10px 20px ;
+}
+
+.structure{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: 20px 0px 10px 30px;
+}
+
+.background{
+    position: relative;
+    top: 10px;
+    background-color: black;
+    color: white;
+    padding: 5px 15px 5px 10px ;
+}
+
+.data{
+    display: inline-flex;
+    padding: 5px;
+}
+
+.applied{
+    margin: 10px 10vw;
+}
+
+.back{
+    background-color: rgb(131, 162, 255);
+}
+
+.sticky1{
+    position: sticky;
+    top: 15vh;
+    z-index: 2000;
+}
