@@ -1,5 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { Context } from "../../App";
+import React, { Fragment, useEffect, useState } from 'react';
 import "./recruiter.css";
 
 function View() {
@@ -7,7 +6,7 @@ function View() {
     const [data, setdata] = useState([]);
     const [submit, setsubmit] = useState([]);
 
-    const token = useContext(Context);
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
 
@@ -22,6 +21,10 @@ function View() {
             .then(res => {
                 setdata(res.data);
             })
+
+    }, [token])
+
+    useEffect(() => {
 
         fetch("https://domaincer-backend.herokuapp.com/recruiter", {
             method: "POST",

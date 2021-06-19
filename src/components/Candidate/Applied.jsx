@@ -1,11 +1,10 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react'
-import { Context } from '../../App';
+import React, { Fragment, useEffect, useState } from 'react'
 
 function Applied() {
 
     const [data, setdata] = useState([]);
 
-    const token = useContext(Context);
+    const token = localStorage.getItem("token");
 
     const fulldate = () => {
         let d = new Date();
@@ -47,26 +46,25 @@ function Applied() {
 
     return (
         <Fragment>
-            {console.log(data)}
-            <div className="applied">
-                {data.map((item, index) => {
-                    return (
-                        <div key={index} className="data">
-                            {item.Data.map((i, ind) => {
-                                return (
-                                    <div key={ind}>
-                                        <div><b>{ind + 1}.</b></div>
-                                        <div className="ml-4"><b>Company Name : </b><span className="ml-3">{i.Name}</span></div>
-                                        <div className="ml-4"><b>Applied Date : </b><span className="ml-3">{i.newdate}</span></div>
-                                        <div className="ml-4"><b>Applied Time : </b><span className="ml-3">{item.newtime}</span></div>
-                                        <div><b>status :</b><span> Completed</span></div>
+            {data.map((item, index) => {
+                return (
+                    <div key={index} className="mt-4 mb-4">
+                        {item.Data.map((i, ind) => {
+                            return (
+                                <div>
+                                    <div key={ind} className="gridify">
+                                        <span className="ml-3"><b>Company Name : </b><span className="ml-3">{i.Name}</span></span>
+                                        <span className="marginy"><b>Applied Date : </b><span className="ml-3">{i.newdate}</span></span>
+                                        <span className="marginy"><b>Applied Time : </b><span className="ml-3">{i.newtime}</span></span>
+                                        <span className="marginy" ><b>status :</b><span className="ml-3"> Completed</span></span>
                                     </div>
-                                )
-                            })}
-                        </div>
-                    )
-                })}
-            </div>
+                                    <div className="lining"></div>
+                                </div>
+                            )
+                        })}
+                    </div>
+                )
+            })}
         </Fragment>
     )
 }

@@ -1,6 +1,5 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import "./recruiter.css";
-import { Context } from "../../App";
 
 function Post() {
 
@@ -14,7 +13,7 @@ function Post() {
     const [post, setpost] = useState("Post a job");
     const [sign, setsign] = useState(true);
 
-    const token = useContext(Context);
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
         if (web.length > 0 && title.length > 0 && about.length && job.length > 0 && role.length > 0 && salary.length > 0) {

@@ -1,6 +1,5 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { Context } from '../../App';
 import Navbar2 from "./Navbar2";
 
 function Apply() {
@@ -13,7 +12,7 @@ function Apply() {
     const [apply, setapply] = useState("Submit");
 
     const { id } = useParams();
-    const token = useContext(Context);
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
         if (Name.length > 0 && Resume.length > 10 && Git.length > 5 && Portifolio.length > 5) {

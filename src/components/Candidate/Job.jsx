@@ -1,13 +1,12 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { Context } from "../../App";
 import Navbar2 from "./Navbar2";
 
 function Job() {
 
     const [data, setdata] = useState([]);
 
-    const token = useContext(Context);
+    const token = localStorage.getItem("token");
     const history = useHistory();
     const { id } = useParams();
 
