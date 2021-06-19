@@ -77,8 +77,14 @@ function View() {
                                                     <a href={value.Resume} target="_blank" rel="noreferrer" >Link to my <b>Resume</b></a>
                                                     <a href={value.Portifolio} target="_blank" rel="noreferrer" >Link to my <b>Portifolio</b></a>
                                                     <a href={value.Git} target="_blank" rel="noreferrer" >Link to my <b>Gitrepo</b></a>
-                                                    <div>{value.newdate}</div>
-                                                    <div>{value.newtime}</div>
+                                                    {value.Data.map((it, index) => {
+                                                        return (
+                                                            <Fragment key={index}>
+                                                                <div><b>{it.Dates}</b></div>
+                                                                <div><b>{it.Time}</b></div>
+                                                            </Fragment>
+                                                        )
+                                                    })}
                                                 </div>
                                                 <div className="lining"></div>
                                             </div>
