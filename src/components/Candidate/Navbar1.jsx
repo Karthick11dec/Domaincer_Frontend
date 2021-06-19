@@ -29,7 +29,7 @@ function Navbar1({ set }) {
     const Logout = () => {
         localStorage.clear();
         alert("Logged Out.");
-        window.location.replace("http://localhost:3000/");
+        window.location.replace("https://domaincer.netlify.app/");
     }
 
     return (

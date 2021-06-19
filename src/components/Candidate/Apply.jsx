@@ -61,7 +61,7 @@ function Apply() {
                     Erase();
                     setTimeout(() => {
                         alert(res.message);
-                        window.location.href = "http://localhost:3000/candidate";
+                        window.location.href = "https://domaincer.netlify.app/candidate";
                     }, 1000);
                 }
                 else if (res.message === "Already you were Applied!") {
@@ -69,7 +69,7 @@ function Apply() {
                     Erase();
                     setTimeout(() => {
                         alert("Already you were Applied!");
-                        window.location.href = "http://localhost:3000/candidate";
+                        window.location.href = "https://domaincer.netlify.app/candidate";
                     }, 1000);
                 }
                 else if (res.message === "Id not found!") {

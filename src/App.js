@@ -16,10 +16,6 @@ function App() {
 
   const token = localStorage.getItem("token");
 
-  // if (token.expirytime > currenttime) {
-  //   localStorage.clear();
-  // }
-
   return (
     <Fragment>
       <Context.Provider value={token}>
