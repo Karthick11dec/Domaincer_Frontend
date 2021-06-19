@@ -1,31 +1,7 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
-import { Context } from "../../App";
+import React, { Fragment } from 'react';
 import "./recruiter.css";
 
 function Navbar({ set }) {
-
-    const [profile, setprofile] = useState("");
-
-    const token = useContext(Context);
-
-    useEffect(() => {
-        fetch("https://domaincer-backend.herokuapp.com/profile", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                authorization: token
-            },
-        })
-            .then(res => { return res.json() })
-            .then(res => {
-                let f = res.data.Firstname;
-                let s = res.data.Lastname;
-                let fl = f.split("").splice(0, 1);
-                let sl = s.split("").splice(0, 1)
-                let pr = fl.concat(sl).join("").toUpperCase();
-                setprofile(pr);
-            })
-    }, [token])
 
     const Logout = () => {
         localStorage.clear();
@@ -44,7 +20,6 @@ function Navbar({ set }) {
                 <div style={{ float: 'right' }} className="mr-3">
                     <div className="btn btn-primary m-2" onClick={() => { set("post") }}>Post Job</div>
                     <div className="btn btn-primary m-2" onClick={() => { set("view") }} >Applicants</div>
-                    <div className="btn btn-primary m-2" >{profile}</div>
                     <div className="btn btn-primary m-2" onClick={Logout} >Logout</div>
                 </div>
             </div>
