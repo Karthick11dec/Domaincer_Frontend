@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import "./recruiter.css";
+import { fulldate } from "../../App";
 
 function Post() {
 
@@ -21,15 +22,9 @@ function Post() {
         }
     }, [Company, web, title, about, job, role, salary, post])
 
-    const fulldate = () => {
-        let d = new Date();
-        let year = d.toLocaleDateString().split("/").splice(2, 1);
-        let month = d.toLocaleDateString().split("/").splice(0, 2).reverse();
-        let full = month.concat(year).join("/");
-        return full;
-    }
 
-    const Handler = () => {
+    const Handler = (e) => {
+        e.preventDefault();
 
         fetch("https://domaincer-backend.herokuapp.com/posting", {
             method: "POST",
@@ -50,11 +45,13 @@ function Post() {
             })
         }).then(res => { return res.json() })
             .then((res) => {
+                // console.log(res);
                 if (res.data) {
                     Erase();
                     setpost("Success");
                     setsign(true);
                     alert("Job Posted.");
+                    window.location.reload();
                 }
                 else {
                     console.log(res.message);
@@ -64,6 +61,7 @@ function Post() {
     }
 
     function Erase() {
+        setCompany("")
         setweb("");
         settitle("");
         setabout("");
@@ -75,82 +73,84 @@ function Post() {
 
     return (
         <Fragment>
-            <div className="form boxing content">
-                <h3 className="pb-2">Post the Recuirment</h3>
-                <div className="form-group">
-                    <label><b>Company Name : </b></label>
-                    <textarea
-                        className="textarea form-control"
-                        rows="1"
-                        value={Company}
-                        onChange={(e) => { setCompany(e.target.value) }}
-                    />
+            <form>
+                <div className="mx-auto m-3 main square">
+                    <h3 className="pb-2">Post the Recuirment</h3>
+                    <div className="form-group">
+                        <label><b>Company Name : </b></label>
+                        <textarea
+                            className="textarea form-control"
+                            rows="1"
+                            value={Company}
+                            onChange={(e) => { setCompany(e.target.value) }}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label><b>Company Website : </b></label>
+                        <textarea
+                            className="textarea form-control"
+                            rows="2"
+                            value={web}
+                            onChange={(e) => { setweb(e.target.value) }}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label><b>Job Title : </b></label>
+                        <textarea
+                            className="textarea form-control"
+                            rows="2"
+                            value={title}
+                            onChange={(e) => { settitle(e.target.value) }}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label><b>About the company :</b></label>
+                        <textarea
+                            className="textarea form-control"
+                            rows="5"
+                            value={about}
+                            onChange={(e) => { setabout(e.target.value) }}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label><b>Job Description :</b></label>
+                        <textarea
+                            className="textarea form-control"
+                            rows="5"
+                            value={job}
+                            onChange={(e) => { setjob(e.target.value) }}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label><b>Roles :</b></label>
+                        <textarea
+                            className="textarea form-control"
+                            rows="4"
+                            value={role}
+                            onChange={(e) => { setrole(e.target.value) }}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label><b>Package :</b></label>
+                        <textarea
+                            className="textarea form-control"
+                            rows="1"
+                            value={salary}
+                            onChange={(e) => { setsalary(e.target.value) }}
+                        />
+                    </div>
+                    <div className="d-flex justify-content-center pt-3 pb-3">
+                        <button
+                            disabled={sign}
+                            className="btn btn-success"
+                            style={{ width: "40%" }}
+                            onClick={(e) => { Handler(e)} }
+                        >
+                            {post}
+                        </button>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label><b>Company Website : </b></label>
-                    <textarea
-                        className="textarea form-control"
-                        rows="2"
-                        value={web}
-                        onChange={(e) => { setweb(e.target.value) }}
-                    />
-                </div>
-                <div className="form-group">
-                    <label><b>Job Title : </b></label>
-                    <textarea
-                        className="textarea form-control"
-                        rows="2"
-                        value={title}
-                        onChange={(e) => { settitle(e.target.value) }}
-                    />
-                </div>
-                <div className="form-group">
-                    <label><b>About the company :</b></label>
-                    <textarea
-                        className="textarea form-control"
-                        rows="5"
-                        value={about}
-                        onChange={(e) => { setabout(e.target.value) }}
-                    />
-                </div>
-                <div className="form-group">
-                    <label><b>Job Description :</b></label>
-                    <textarea
-                        className="textarea form-control"
-                        rows="5"
-                        value={job}
-                        onChange={(e) => { setjob(e.target.value) }}
-                    />
-                </div>
-                <div className="form-group">
-                    <label><b>Roles :</b></label>
-                    <textarea
-                        className="textarea form-control"
-                        rows="4"
-                        value={role}
-                        onChange={(e) => { setrole(e.target.value) }}
-                    />
-                </div>
-                <div className="form-group">
-                    <label><b>Package :</b></label>
-                    <textarea
-                        className="textarea form-control"
-                        rows="2"
-                        value={salary}
-                        onChange={(e) => { setsalary(e.target.value) }}
-                    />
-                </div>
-                <div className="d-flex justify-content-center pt-3 pb-3">
-                    <button
-                        disabled={sign}
-                        className="btn btn-danger"
-                        style={{ width: "40%" }}
-                        onClick={Handler}
-                    >
-                        {post}
-                    </button>
-                </div>
-            </div>
+            </form>
         </Fragment>
     )
 }

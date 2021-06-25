@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Navbar2 from "./Navbar2";
+import { fulldate } from "../../App";
 
 function Apply() {
 
@@ -27,15 +28,8 @@ function Apply() {
         setPortifolio("");
     }
 
-    const fulldate = () => {
-        let d = new Date();
-        let year = d.toLocaleDateString().split("/").splice(2, 1);
-        let month = d.toLocaleDateString().split("/").splice(0, 2).reverse();
-        let full = month.concat(year).join("/");
-        return full;
-    }
-
-    const Handler = () => {
+    const Handler = (e) => {
+        e.preventDefault();
 
         fetch(`https://domaincer-backend.herokuapp.com/submit/${id}`, {
             method: "POST",
@@ -80,7 +74,8 @@ function Apply() {
     return (
         <Fragment>
             <Navbar2 />
-            <div className="form boxing content card-header">
+            <form className ="mx-auto m-3 main square1">
+            <div className="card-header">
                 <h3 className="pb-2">Apply for the Recuirment</h3>
                 <div className="form-group">
                     <label><b>Name : </b></label>
@@ -121,14 +116,15 @@ function Apply() {
                 <div className="d-flex justify-content-center pt-3 pb-3">
                     <button
                         disabled={Sign}
-                        className="btn btn-danger"
+                        className="btn btn-success"
                         style={{ width: "40%" }}
-                        onClick={Handler}
+                        onClick={(e) => { Handler(e) }}
                     >
                         {apply}
                     </button>
                 </div>
             </div>
+            </form>
         </Fragment>
     )
 }

@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useHistory, useParams } from "react-router-dom";
 import "./common.css";
-import MainNav from "./Navbar";
+import Navbar from '../Common/Navbar';
 
 
 function Register() {
@@ -83,8 +83,8 @@ function Register() {
 
     return (
         <Fragment>
-            <MainNav />
-            <div className="form main square mb-5">
+            <Navbar />
+            <form className="m-3 main square mx-auto">
                 <h3 className="pb-3">Register Your Profile</h3>
                 <div className="form-group">
                     <lable className="bold">Firstname:</lable>
@@ -137,9 +137,11 @@ function Register() {
                         onChange={(e) => { setmobile(e.target.value) }}
                     />
                 </div>
-                <button type="button" className="btn btn-danger m-3" disabled={sign} onClick={(e) => { Sign(e) }}>{register}</button>
-                <p className="d-flex justify-content-center">Already have an account? here<a href="/login"><b className="ml-1">login</b></a></p>
-            </div>
+                <div className="flexify">
+                    <button type="button" className="btn btn-success m-3" disabled={sign} onClick={(e) => { Sign(e) }}>{register}</button>
+                    <p className="d-flex justify-content-center">Already have an account? here<a href="/login"><b className="ml-1 underline">login`</b></a></p>
+                </div>
+            </form>
         </Fragment>
     )
 }

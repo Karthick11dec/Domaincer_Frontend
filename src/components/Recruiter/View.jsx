@@ -3,6 +3,7 @@ import "./recruiter.css";
 
 function View() {
 
+    const [loading, setloading] = useState("Loading the applicants details...");
     const [data, setdata] = useState([]);
     const [submit, setsubmit] = useState([]);
 
@@ -19,7 +20,11 @@ function View() {
         })
             .then(res => { return res.json() })
             .then(res => {
-                setdata(res.data);
+                let rev = res.data.reverse();
+                setTimeout(() => {
+                    setdata(rev);
+                    setloading(false);
+                }, 500);
             })
 
     }, [token])
@@ -35,6 +40,7 @@ function View() {
         })
             .then(res => { return res.json() })
             .then(res => {
+                // console.log(res)
                 if (res.data) {
                     setsubmit(res.data);
                 }
@@ -48,54 +54,89 @@ function View() {
 
     }, [token])
 
+
+    const Status = (id) => {
+        fetch(`https://domaincer-backend.herokuapp.com/status/${id}`, {
+            headers: {
+                "Content-Type": "application/json",
+                authorization: token
+            }
+        })
+            .then(res => { return res.json() })
+            .then(res => {
+                // console.log(res);
+            })
+    }
+
+
     return (
         <Fragment>
-            {data.map((item, index) => {
-                return (
-                    <div key={index} className="card p-3">
-                        <div className="card-header">
-                            <details>
-                                <summary>
-                                    <small><strong>Note : </strong>Want to see the <strong>applicants</strong>,
-                                        click the small arrow on top left <strong>and</strong> if it not showcase anything which means no applicants for a job</small>
-                                    <div className="pb-2">
-                                        <b>Posted Date :</b>
-                                        <div className="ml-5">{item.Dates}</div>
-                                    </div>
-                                    <div className="pb-2">
-                                        <b>Job Title :</b>
-                                        <div className="ml-5">{item.Title}</div>
-                                    </div>
-                                </summary>
-                                <p className="white">
-                                    {submit.filter(i => i.Title === item.Title).map((value, indexes) => {
-                                        return (
-                                            <div className="p-2">
-                                                <div key={indexes} className="grid fullblock">
-                                                    <b>{indexes + 1}.</b>
-                                                    <span className="ml-3">{value.Name}</span>
-                                                    <a href={value.Resume} target="_blank" rel="noreferrer" >Link to my <b>Resume</b></a>
-                                                    <a href={value.Portifolio} target="_blank" rel="noreferrer" >Link to my <b>Portifolio</b></a>
-                                                    <a href={value.Git} target="_blank" rel="noreferrer" >Link to my <b>Gitrepo</b></a>
-                                                    {value.Data.map((it, index) => {
-                                                        return (
-                                                            <Fragment key={index}>
-                                                                <div><b>{it.Dates}</b></div>
-                                                                <div><b>{it.Time}</b></div>
-                                                            </Fragment>
-                                                        )
-                                                    })}
-                                                </div>
-                                                <div className="lining"></div>
+            {loading ? (<h5 className="text-secondary d-flex justify-content-center">{loading}</h5>) : (<Fragment>
+                {data.map((item, index) => {
+                    return (
+                        <div key={index} className="card p-3">
+                            <div className="card-header">
+                                <details>
+                                    <summary>
+                                        <div>
+                                            <small><strong>Note : </strong>
+                                                click over to view the <strong>applicants</strong><strong> and</strong> if it is empty which means no applicants for a job
+                                            </small>
+                                            <div className="pt-2 pb-2">
+                                                <b>Posted Date :</b>
+                                                <div className="ml-5">{item.Dates}</div>
                                             </div>
-                                        )
-                                    })}
-                                </p>
-                            </details>
+                                            <div className="pt-2 pb-2">
+                                                <b>Job Title :</b>
+                                                <div className="ml-5">{item.Title}</div>
+                                            </div>
+                                        </div>
+                                    </summary>
+                                    <div className="white">
+                                        {submit.filter(i => i.Title === item.Title).map((value, indexes) => {
+                                            return (
+                                                <div className="p-2 hovering"
+                                                    key={indexes}
+                                                    onClick={() => { Status(value._id) }}
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title="viewing information sent to applicants if click over here"
+                                                >
+                                                    <div className="grid fullblock">
+                                                        <b>{indexes + 1}.<span className="ml-2">{value.Name}</span></b>
+                                                        <div>
+                                                            Link to
+                                                            <a href={value.Resume} target="_blank" rel="noreferrer"><b className="ml-1 line">Resume</b></a>
+                                                        </div>
+                                                        <div>
+                                                            Link to
+                                                            <a href={value.Portifolio} target="_blank" rel="noreferrer"><b className="ml-1 line">Portifolio</b></a>
+                                                        </div>
+                                                        <div>
+                                                            Link to
+                                                            <a href={value.Git} target="_blank" rel="noreferrer"><b className="ml-1 line">Gitrepo</b></a>
+                                                        </div>
+                                                        {value.Data.map((it, index) => {
+                                                            return (
+                                                                <Fragment key={index}>
+                                                                    <div><b>Date :</b> {it.Dates}</div>
+                                                                    <div><b>Time :</b> {it.Time}</div>
+                                                                </Fragment>
+                                                            )
+                                                        })}
+                                                    </div>
+                                                    <div className="lining"></div>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                </details>
+                            </div>
                         </div>
-                    </div>
-                )
-            })}
+                    )
+                })}
+            </Fragment>)
+            }
         </Fragment>
     )
 }

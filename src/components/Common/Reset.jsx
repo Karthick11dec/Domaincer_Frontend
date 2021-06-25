@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import "./common.css";
-import MainNav from "./Navbar";
+import Navbar from './Navbar';
 
 function Reset() {
 
@@ -63,32 +63,35 @@ function Reset() {
 
     return (
         <Fragment>
-            <MainNav />
-            <div className="form main square">
-                <h3 className="pb-3">Reset Password</h3>
-                <div className="form-group">
-                    <lable className="bold">Email: (<small>Your account email</small>)</lable>
-                    <input
-                        type="email"
-                        className="form-control"
-                        placeholder="ex:karthick@gmail.com"
-                        value={mail}
-                        onChange={(e) => { setmail(e.target.value) }}
-                    />
+            <Navbar />
+            <form>
+                <div className="m-3 main square mx-auto">
+                    <h3 className="pb-3">Reset Password</h3>
+                    <div className="form-group">
+                        <lable className="bold">Email: (<small>Your account email</small>)</lable>
+                        <input
+                            type="email"
+                            className="form-control"
+                            placeholder="ex:karthick@gmail.com"
+                            value={mail}
+                            onChange={(e) => { setmail(e.target.value) }}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <lable className="bold">Password: (<small>Create a new Password</small>)</lable>
+                        <input
+                            type="password"
+                            className="form-control"
+                            placeholder="should more than 8 chars"
+                            value={passcode}
+                            onChange={(e) => { setpasscode(e.target.value) }}
+                        />
+                    </div>
+                    <div className="flexify">
+                        <button type="button" className="btn btn-success m-3 " disabled={sign} onClick={(e) => { Reset(e) }}>{reset}</button>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <lable className="bold">Password: (<small>Create a new Password</small>)</lable>
-                    <input
-                        type="password"
-                        className="form-control"
-                        placeholder="should more than 8 chars"
-                        value={passcode}
-                        onChange={(e) => { setpasscode(e.target.value) }}
-                    />
-                    <small></small>
-                </div>
-                <button type="button" className="btn btn-danger m-3 " disabled={sign} onClick={(e) => { Reset(e) }}>{reset}</button>
-            </div>
+            </form>
         </Fragment>
     )
 }

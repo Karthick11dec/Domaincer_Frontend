@@ -16,7 +16,7 @@
 .background{
     position: relative;
     top: 10px;
-    background-color: black;
+    background-color: green;
     color: white;
     padding: 5px 15px 5px 10px ;
 }
@@ -24,6 +24,11 @@
 .flexify{
     display: flex;
     flex-direction: row;
+}
+
+.square1{
+    padding: 0px;
+    border: 1px solid rgb(27, 27, 77);
 }
 
 .back{
@@ -48,4 +53,11 @@
 .gridify{
     display: grid;
     grid-template-columns: 2fr 2fr 2fr 2fr;
+}
+
+@media screen and (max-width : 765px) {
+    .gridify{
+        display: flex;
+        flex-direction: column;
+    }
 }

@@ -1,25 +1,48 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
+import { Title, Logout } from "../../App";
 
 function Navbar2() {
 
-    const Logout = () => {
-        localStorage.clear();
-        alert("Logged Out.");
-        window.location.replace("https://domaincer.netlify.app/");
-    }
+    const [profile, setprofile] = useState("");
+
+    const token = localStorage.getItem("token");
+
+    useEffect(() => {
+        fetch("https://domaincer-backend.herokuapp.com/profile", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: token
+            },
+        })
+            .then(res => { return res.json() })
+            .then(res => {
+                let f = res.data.Firstname.split("").slice(0, 1).join("").toUpperCase();
+                let s = res.data.Lastname.split("").slice(0, 1).join("").toUpperCase();
+                setprofile([f].concat([s]).join(""));
+            })
+    }, [token])
 
     return (
         <Fragment>
-            <div className="navbar text-light sticky">
-                <div className="ml-4">
-                    <span><b>Domaincer Web</b></span>
-                    <br></br>
-                    <small>A website for recurite</small>
+            <nav className="navbar navbar-expand-lg navbar-light bg-dark sticky">
+                <Title />
+
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+
+                <div className="collapse navbar-collapse" id="navbar" >
+                    <ul className="navbar-nav mr-auto marginificate2">
+                        <li className="nav-item">
+                            <button className="btn btn-outline-success m-2" >{!profile ? ("Profile") : (profile)}</button>
+                        </li>
+                        <li className="nav-item">
+                            <button className="btn btn-outline-success m-2" onClick={Logout} >Logout</button>
+                        </li>
+                    </ul>
                 </div>
-                <div style={{ float: 'right' }} className="mr-3">
-                    <div className="btn btn-primary m-2" onClick={Logout} >Logout</div>
-                </div>
-            </div>
+            </nav>
         </Fragment>
     )
 }

@@ -4,20 +4,19 @@
 
 .mid{
     text-align: center;
+    font-size: 20px;
+    margin: 15px;
 }
 
 .text{
     color: rgb(0, 64, 255);
     cursor: pointer;
-}
-
-.text:hover{
-    color: green;
+    margin-left: 10px;
 }
 
 .line{
     text-decoration: none;
-    color: rgb(31, 31, 255);
+    color:green;
 }
 
 .line:hover{
@@ -28,11 +27,7 @@
 .main{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    width: 35%;
-    margin-left: 30vw;
-    top: 20px;
-    position: relative;
+    width: 50%;
 }
 
 .bold{
@@ -44,7 +39,17 @@
     border: 1px solid rgb(27, 27, 77);
 }
 
-.navbar{
+.underline{
+    color: green;
+}
+
+.underline:hover{
+    color: green;
+    text-decoration: underline;
+    text-decoration-color: green;
+}
+
+.common{
     height: 12vh;
     font-size: 20px;
     background-color: black;
@@ -54,4 +59,19 @@
     position: sticky;
     top: 0;
     z-index: 2000;
+}
+
+.flexify{
+    display: flex;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
+
+@media screen and (max-width:992px) {
+    .main{
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+    }
+
 }

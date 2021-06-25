@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import "./common.css";
-import MainNav from "./Navbar";
+import Navbar from './Navbar';
 
 function Login() {
 
@@ -136,53 +136,61 @@ function Login() {
 
     return (
         <Fragment>
-            <MainNav />
+            <Navbar />
             {!change ? (
-                <div className="form main square">
-                    <h3 className="pb-3">Login with yours</h3>
-                    <div className="form-group">
-                        <lable className="bold">Email: (<small>Your account email</small>)</lable>
-                        <input
-                            type="email"
-                            className="form-control"
-                            placeholder="ex:karthick@gmail.com"
-                            value={mail}
-                            onChange={(e) => { setmail(e.target.value) }}
-                        />
+                <form>
+                    <div className="m-3 main square mx-auto">
+                        <h3 className="pb-3">Login with yours</h3>
+                        <div className="form-group">
+                            <lable className="bold">Email: (<small>Your account email</small>)</lable>
+                            <input
+                                type="email"
+                                className="form-control"
+                                placeholder="ex:karthick@gmail.com"
+                                value={mail}
+                                onChange={(e) => { setmail(e.target.value) }}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <lable className="bold">Password: (<small>Your current Password</small>)</lable>
+                            <input
+                                type="password"
+                                className="form-control"
+                                placeholder="should more than 8 chars"
+                                value={passcode}
+                                onChange={(e) => { setpasscode(e.target.value) }}
+                            />
+                        </div>
+                        <div className="flexify">
+                            <button type="button" className="btn btn-success m-3 " disabled={sign} onClick={(e) => { Login(e) }}>{login}</button>
+                            <p className="d-flex justify-content-center line" onClick={() => { setchange(!change) }}>
+                                {change ? (<b>Back to login`</b>) : <b>Forgot Password? Reset`</b>}
+                            </p>
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <lable className="bold">Password: (<small>Your current Password</small>)</lable>
-                        <input
-                            type="password"
-                            className="form-control"
-                            placeholder="should more than 8 chars"
-                            value={passcode}
-                            onChange={(e) => { setpasscode(e.target.value) }}
-                        />
-                    </div>
-                    <button type="button" className="btn btn-danger m-3 " disabled={sign} onClick={(e) => { Login(e) }}>{login}</button>
-                    <p className="d-flex justify-content-center line" onClick={() => { setchange(!change) }}>
-                        {change ? (<b>Back to login!</b>) : <b>Forgot Password? Reset!</b>}
-                    </p>
-                </div>
+                </form>
             ) : (
-                <div className="form main square">
-                    <h3 className="pb-3">Reset Link</h3>
-                    <div className="form-group">
-                        <lable className="bold">Email: (<small>Your account email</small>)</lable>
-                        <input
-                            type="email"
-                            className="form-control"
-                            placeholder="ex:karthick@gmail.com"
-                            value={reset}
-                            onChange={(e) => { setreset(e.target.value) }}
-                        />
+                <form>
+                    <div className="m-3 main square mx-auto">
+                        <h3 className="pb-3">Reset Link</h3>
+                        <div className="form-group">
+                            <lable className="bold">Email: (<small>Your account email</small>)</lable>
+                            <input
+                                type="email"
+                                className="form-control"
+                                placeholder="ex:karthick@gmail.com"
+                                value={reset}
+                                onChange={(e) => { setreset(e.target.value) }}
+                            />
+                        </div>
+                        <div className="flexify">
+                            <button type="button" className="btn btn-success m-3" disabled={sign} onClick={(e) => { Reset(e) }}>{send}</button>
+                            <p className="d-flex justify-content-center line" onClick={() => { setchange(!change) }}>
+                                {change ? (<b>Back to login`</b>) : <b>Forgot Password? Reset`</b>}
+                            </p>
+                        </div>
                     </div>
-                    <button type="button" className="btn btn-danger m-3" disabled={sign} onClick={(e) => { Reset(e) }}>{send}</button>
-                    <p className="d-flex justify-content-center line" onClick={() => { setchange(!change) }}>
-                        {change ? (<b>Back to login!</b>) : <b>Forgot Password? Reset!</b>}
-                    </p>
-                </div>
+                </form>
             )}
         </Fragment>
     )
