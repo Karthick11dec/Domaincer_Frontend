@@ -57,7 +57,7 @@ export const fulldate = () => {
 export const Logout = () => {
   localStorage.clear();
   alert("Logged Out.");
-  window.location.replace("https://domaincer.netlify.app/");
+  window.location.replace("https://job-website-new.netlify.app/");
 }
 
 function App() {
